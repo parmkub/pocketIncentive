@@ -9,27 +9,29 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="180dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <ImageView
-            android:layout_margin="10dp"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_margin="10dp"
             android:src="@drawable/ic_card_emp" />
 
         <EditText
+            android:inputType="text"
             android:id="@+id/edtUsersname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Empcode"
+            android:hint="User"
             android:textSize="24dp" />
 
 
@@ -37,14 +39,14 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="70dp"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
@@ -63,22 +65,51 @@
             android:textSize="24dp" />
 
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="298dp"
+        android:layout_height="71dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_location_work_foreground" />
+
+        <EditText
+            android:id="@+id/edtLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Section Code"
+            android:inputType="number"
+            android:textSize="24dp" />
 
 
     </LinearLayout>
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="398dp"
-        android:layout_height="75dp"
+        android:layout_width="305dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="200dp"
         android:text="LOGIN"
         android:textSize="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.106" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintVertical_bias="0.214" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

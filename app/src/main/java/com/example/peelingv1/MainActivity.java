@@ -6,8 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaPlayer;
@@ -36,6 +39,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.ProgressCallback;
+
+import java.io.File;
 import java.sql.Time;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -63,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
     Cursor myData;
     String[] Cmd = {"แก้ไข","ลบ"};
     CardView _cardViewAlldata;
+    String location;
+    private boolean mIsUploading = false;
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -78,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
         mcountPeeling = mydb.getPeelingCountAll();
         bindwiget();
         _textAllRecode.setText(String.format("%d",mcountPeeling));
+
+        Intent logindata = getIntent();
+        location = logindata.getStringExtra("location");
 
         ShowDataAll();
 
@@ -439,6 +452,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 mydb.exportDatabase();
                                 Toast.makeText(MainActivity.this, "ส่งข้อมูลเรียบร้อย", Toast.LENGTH_LONG).show();
+                                uploadFile(location);
                             }
                         });
             viewManu.show();
@@ -484,6 +498,39 @@ public class MainActivity extends AppCompatActivity {
     public void beefEmp(){
         final MediaPlayer beefScan = MediaPlayer.create(MainActivity.this,R.raw.multimedia_notify);
         beefScan.start();
+    }
+
+    public void  uploadFile(String location){
+        String Uri ="http://61.7.142.47:8086/peeling/uploadExdata.php?section="+location;
+
+        final Notification.Builder notifBuilder = new Notification.Builder(getBaseContext()).setSmallIcon(R.mipmap.ic_launcher);
+        final int id = 1122;
+        final NotificationManager notifMan =
+                (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        mIsUploading = true;
+        Ion.with(this).load(Uri)
+                .uploadProgress(new ProgressCallback() {
+                    @Override
+                    public void onProgress(long downloaded, long total) {
+                        notifBuilder.setProgress((int)total,(int)downloaded,false);
+
+                        Notification notif = notifBuilder.build();
+                        notifMan.notify(id,notif);
+                    }
+                })
+                .setMultipartFile("upload_file",new File(mydb.getPathFile()))
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        notifBuilder.setProgress(100, 100, false);
+                        notifBuilder.setContentText(result);
+                        Notification notif = notifBuilder.build();
+                        notifMan.notify(id,notif);
+                        mIsUploading = false;
+                        Toast.makeText(getBaseContext(),result,Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 

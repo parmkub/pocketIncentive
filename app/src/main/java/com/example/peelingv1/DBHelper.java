@@ -106,6 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void DeleteData(String id){
         SQLiteDatabase db = getWritableDatabase();
        db.execSQL("DELETE FROM " + TABLE + " WHERE id = " + id);
+
     }
 
     public int getPeelingCountAll(){
@@ -164,6 +165,14 @@ public class DBHelper extends SQLiteOpenHelper {
         }catch (Exception e){
             return null;
         }
+    }
+
+    public  String getPathFile(){
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        String patch ;
+        File filePtch = new File(dir,"Exdata.txt");
+        patch = filePtch.getPath();
+        return patch;
     }
 
     //export Data to CSV
