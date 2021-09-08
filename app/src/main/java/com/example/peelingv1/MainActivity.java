@@ -420,7 +420,7 @@ public class MainActivity extends AppCompatActivity {
         if(id == R.id.action_deleteAll){
             viewManu.setTitle("ลบข้อมูล")
                     .setIcon(R.drawable.ic_delete_24)
-                    .setMessage("ต้องการลบข้อมูลทั้งหมดใช้หรือไม่")
+                    .setMessage("ต้องการลบข้อมูลทั้งหมดใช่หรือไม่")
                     .setNegativeButton(android.R.string.cancel,null)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
